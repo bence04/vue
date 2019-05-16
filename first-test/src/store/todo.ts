@@ -5,7 +5,7 @@ export default {
       mutations: {
         addNewItem(state: any, payload: any) {
             state.todos.push({
-                id: state.todos[state.todos.length - 1].id + 1,
+                id: (state.todos.length === 0) ? 0 : state.todos[state.todos.length - 1].id + 1,
                 name: payload.name,
                 checked: false,
             });
