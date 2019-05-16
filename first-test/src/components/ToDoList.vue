@@ -4,7 +4,7 @@
     <h3>{{ items.name }}</h3>
     <input type="text" v-model="newItem" @change="newElementAdd()">
     <div class="list">
-      <div v-for="item in items.data" v-bind:key="item.id">
+      <div v-for="item in items" v-bind:key="item.id">
         <div @click="openDetails(item.id)">
           {{ item.id }} - {{ item.name }}
         </div>
@@ -20,19 +20,18 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class ToDoListComponent extends Vue {
   @Prop() private msg!: string;
   private newItem: string = '';
-  private items = {
-    name: 'todo',
-    data: [],
-  };
+  private items = {};
+
+  private created() {
+    this.$store.watch(
+      (state, getters) => getters.todos,
+      (newValue) => {
+        this.items = newValue;
+      });
+  }
 
   private newElementAdd() {
-    /* const lastIndex = this.items.data[this.items.data.length - 1].id;
-    this.items.data.push({
-      id: lastIndex + 1,
-      name: this.newItem,
-      checked: false,
-    }); */
-    this.$store.dispatch('loadAction', {name: this.newItem});
+    this.$store.dispatch('addNewItemAction', {name: this.newItem});
     this.newItem = '';
   }
 

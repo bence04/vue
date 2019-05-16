@@ -1,21 +1,22 @@
 export default {
     state: {
-        isLoading: false,
-        todos: [{
-          id: 0,
-          name: 'first',
-          checked: false,
-        }],
+        todos: [],
       },
       mutations: {
-        loadMutation(state: any, payload: any) {
-            
-            state.isLoading = true;
+        addNewItem(state: any, payload: any) {
+            state.todos.push({
+                id: state.todos[state.todos.length - 1].id + 1,
+                name: payload.name,
+                checked: false,
+            });
         },
       },
       actions: {
-        loadAction(context: any, payload: any) {
-            context.commit('loadMutation', payload);
+        addNewItemAction(context: any, payload: any) {
+            context.commit('addNewItem', payload);
         },
       },
-}
+      getters: {
+          todos: (state: any) => state.todos,
+      },
+};
