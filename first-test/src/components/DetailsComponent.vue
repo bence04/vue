@@ -12,11 +12,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class DetailsComponent extends Vue {
   private selectedItemId: number = -1;
 
-  created() {
+  private created() {
     this.selectedItemId = +this.$route.query.id;
   }
 
-  navigateBack() {
+  private navigateBack() {
     this.$router.push({path: '/'});
   }
 }

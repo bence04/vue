@@ -22,20 +22,17 @@ export default class ToDoListComponent extends Vue {
   private newItem: string = '';
   private items = {
     name: 'todo',
-    data: [{
-      id: 0,
-      name: 'first',
-      checked: false,
-    }],
+    data: [],
   };
 
   private newElementAdd() {
-    const lastIndex = this.items.data[this.items.data.length - 1].id;
+    /* const lastIndex = this.items.data[this.items.data.length - 1].id;
     this.items.data.push({
       id: lastIndex + 1,
       name: this.newItem,
       checked: false,
-    });
+    }); */
+    this.$store.dispatch('loadAction', {name: this.newItem});
     this.newItem = '';
   }
 
